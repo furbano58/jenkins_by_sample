@@ -1,3 +1,22 @@
+```bash
+demo@VirtualBox:~/Demo_Docker$ mkdir jenkins_home
+``` 
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ sudo su
+[sudo] password for demo:
+root@hector-VirtualBox:/home/demo/jenkins-by-sample# chown 1000 -R jenkins_home
+```
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ docker-compose up -d
+Starting jenkins ... done
+
+demo@VirtualBox:~/Demo_Docker$ docker ps
+CONTAINER ID IMAGE    COMMAND      CREATED   STATUS  PORTS     NAMES
+7f41ec7f07ac jenkin.. "/sbin/t..." 55 se...  Up 3..  0.0....   jenkins
+```
+
 ![./img/0001.png](./img/0001.png)
 
 Ahora nos pedirán que identifiquemos el pass de administrador de la instalación del nuevo contenedor de jenkins. Para ello accederemos a la consola en la carpeta del proyecto y utilizaremos el comando `docker exec -ti jenkins bash` para acceder a la terminal de jenkins, siendo `jenkins`el nombre de nuestro contenedor activo de jenkins (`docker ps`).
