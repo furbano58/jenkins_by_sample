@@ -44,3 +44,26 @@ Y accedemos a Jenkins ...
 Aquí tenemos el dashboard de **Jenkins** con sus distintas opciones.
 
 ![./img/0007.png](./img/0007.png)]
+
+El dashboard de jenkins consta de :
+    * **Jobs/tareas/proyectos**
+    * **Personas**, son usuarios del sistema. En Jenkins podemos habilitar o deshabilitar la autentificación
+    * **Historial de trabajos**. Cada Job tiene un histórico, y cada vez que ejecutamos una tarea genera un historial.
+    * **Administrar Jenkins**, es la parte de configuraciones del sistema.
+    * **Mis vistas**, permite generar vistas o dashboards propios.
+    * **Credenciales**
+    * **New Views**
+
+Un job es una tarea o cúmulo de tareas o pasos. 
+
+> Jenkins permite realizar las tareas desde un servidor o desde la propia máquina local. En nuestro caso usaremos jenkins en local, aunque posteriormente veremos como hacerlo conectado con un servidor.
+
+Para acceder a crear una nueva tarea accederemos a [Nueva Tarea](http://127.0.0.1:8080/view/all/newJob), dónde veremos una pantalla como la siguiente que nos permitirá crear distintos tipos de tareas.
+
+![./img/0008.png](./img/0008.png)]
+
+Creamos un primer proyecto de estilo libre, el cual tendrá:
+
+
+* Una descripción `Este es un job de test`.
+* Y una ejecución **línea de comandos shell**.
