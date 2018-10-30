@@ -33,7 +33,7 @@ En indicamos la url de acceso a nuestra instalación, en este caso por defecto s
 
 Y accedemos a Jenkins ...
 
-![./img/0006.png](./img/0006.png)]
+![./img/0006.png](./img/0006.png)
 
 ---------------------------------------------------------
 
@@ -43,7 +43,7 @@ Y accedemos a Jenkins ...
 
 Aquí tenemos el dashboard de **Jenkins** con sus distintas opciones.
 
-![./img/0007.png](./img/0007.png)]
+![./img/0007.png](./img/0007.png)
 
 El dashboard de jenkins consta de :
     * **Jobs/tareas/proyectos**
@@ -60,10 +60,50 @@ Un job es una tarea o cúmulo de tareas o pasos.
 
 Para acceder a crear una nueva tarea accederemos a [Nueva Tarea](http://127.0.0.1:8080/view/all/newJob), dónde veremos una pantalla como la siguiente que nos permitirá crear distintos tipos de tareas.
 
-![./img/0008.png](./img/0008.png)]
+![./img/0008.png](./img/0008.png)
 
 Creamos un primer proyecto de estilo libre, el cual tendrá:
 
-
 * Una descripción `Este es un job de test`.
 * Y una ejecución **línea de comandos shell**.
+
+![./img/0009.png](./img/0009.png)
+![./img/0010.png](./img/0010.png)
+![./img/0011.png](./img/0011.png)
+
+Una vez guardada la tarea accederemos a **construir ahora** la tarea y nos aparecerá en el cuadro inferior un historial de ejecuciones de la tarea junto a la opción de ver en terminal, la cual pulsaremos para comprobar la resultante en terminal.
+
+![./img/00012.png](./img/0012.png)
+
+Esta será la vista de la resultante en terminal.
+
+![./img/00013.png](./img/0013.png)
+
+> Jenkins construye un script bash con el código escrito en esa shell de jenkins y lo ejecuta.
+
+**Acabamos de crear nuestro primer jobs el cual dispone de un comando y realiza una primera ejecución.**
+
+Ahora modificaremos el jobs accediendo a la pestaña de **configruación** del jobs para cambiar la configuracion.
+
+![./img/00014.png](./img/0014.png)
+
+#### Funciones de linux Shell
+
+Comando Shell a incluir `echo "La fecha y hora es: $(date)"`, una vez guardado ejecutaremos construir jobs y accederemos nuevamente a la terminal para visualizar el output.
+
+![./img/00015.png](./img/0015.png)
+
+![./img/00016.png](./img/0016.png)
+
+#### Variables de entorno
+
+Comandos Shell a incluir:
+```bash
+NOMBRE="ricardo"
+echo "hola, $NOMBRE" > /tmp/nombre
+```
+Una vez guardado ejecutaremos construir jobs y accederemos nuevamente a la terminal para visualizar el output.
+
+![./img/00017.png](./img/0017.png)
+
+![./img/00018.png](./img/0018.png)
