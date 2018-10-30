@@ -98,12 +98,66 @@ Comando Shell a incluir `echo "La fecha y hora es: $(date)"`, una vez guardado e
 #### Variables de entorno
 
 Comandos Shell a incluir:
+
 ```bash
 NOMBRE="ricardo"
 echo "hola, $NOMBRE" > /tmp/nombre
 ```
+
 Una vez guardado ejecutaremos construir jobs y accederemos nuevamente a la terminal para visualizar el output.
 
 ![./img/00017.png](./img/0017.png)
 
 ![./img/00018.png](./img/0018.png)
+
+En este último ejemplo hemos creado un nuevo archivo con un contenido definido, por lo que si accedemos a la terminal del contenedor `docker exec -ti jenkins bash`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash
+jenkins@c896504a004b:/$
+```
+
+Y accedemos a la ubicación del archivo indicado `/tmp/nombre`, podremos ver el contenido del mismo.
+
+```bash
+jenkins@c896504a004b:/$ ls
+bin   dev               etc   lib    media  opt   root  sbin  sys  usr
+boot  docker-java-home  home  lib64  mnt    proc  run   srv   tmp  var
+
+jenkins@c896504a004b:/$ cd tmp
+
+jenkins@c896504a004b:/tmp$ ls
+hsperfdata_jenkins                                   jna--1712433994
+hsperfdata_root                                      nombre
+jetty-0.0.0.0-8080-war-_-any-743831612360637085.dir  winstone2747702198265079682.jar
+
+jenkins@c896504a004b:/tmp$ cat nombre
+hola, ricardo
+```
+
+**Ejercicio:** Crear una nueva modificación en shel con el código:
+
+```bash
+NOMBRE="ricardo"
+echo "hola, $NOMBRE. La hora es $(date +%F)" > /tmp/nombre
+```
+
+![./img/00019.png](./img/0019.png)
+
+![./img/00020.png](./img/0020.png)
+
+
+---------------------------------------------------------
+
+### Ejecutar script externo desde el job
+
+---------------------------------------------------------
+
+Primeramente generaremos un script bash.
+
+```bash
+#!/bint/bash
+echo "hola, $NOMBRE $APELLIDO"
+```
+
+Si ejecutassemos este script en consola no se imprimiría nada más que la parte sin variables, ya que las mismas están aún sin definir.
