@@ -16,11 +16,11 @@ Existen varias opciones entre las que usaremos primeramente **parámetro de cade
 
 Con el nombre de variable **NAME** y el valor definido **ricardo**.
 
-Accedemos en nuestra **shell de jenkins** e incluimos el siguiente código `echo "Hola $NAME`.
+Accedemos en nuestra **shell de jenkins** e incluimos el siguiente código `echo "Hola $NAME"`.
 
 ![./img/00025.png](./img/0025.png)
 
-Guardamos la configuración, y construimos nuevamente el **Job** (**NOTA**: aparecerá construir con parámetros). Una vez pulsemos en **Construir con parámetros** nos pedirá que confirmemos el valor de las variables.
+Guardamos la configuración, y construimos nuevamente el **Job** (**NOTA**: aparecerá **construir con parámetros**). Una vez pulsemos en **Construir con parámetros** nos pedirá que confirmemos el valor de las variables.
 
 ![./img/00026.png](./img/0026.png)
 

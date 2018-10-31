@@ -9,13 +9,14 @@ Aquí tenemos el dashboard de **Jenkins** con sus distintas opciones.
 ![./img/0007.png](./img/0007.png)
 
 El dashboard de jenkins consta de :
-    * **Jobs/tareas/proyectos**
-    * **Personas**, son usuarios del sistema. En Jenkins podemos habilitar o deshabilitar la autentificación
-    * **Historial de trabajos**. Cada Job tiene un histórico, y cada vez que ejecutamos una tarea genera un historial.
-    * **Administrar Jenkins**, es la parte de configuraciones del sistema.
-    * **Mis vistas**, permite generar vistas o dashboards propios.
-    * **Credenciales**
-    * **New Views**
+
+* **Jobs/tareas/proyectos**
+* **Personas**, son usuarios del sistema. En Jenkins podemos habilitar o deshabilitar la autentificación
+* **Historial de trabajos**. Cada Job tiene un histórico, y cada vez que ejecutamos una tarea genera un historial.
+* **Administrar Jenkins**, es la parte de configuraciones del sistema.
+* **Mis vistas**, permite generar vistas o dashboards propios.
+* **Credenciales**
+* **New Views**
 
 Un job es una tarea o cúmulo de tareas o pasos. 
 
