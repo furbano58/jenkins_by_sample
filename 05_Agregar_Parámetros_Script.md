@@ -71,3 +71,5 @@ Y probaremos los resultados obtenidos en terminal.
 ![./img/00035.png](./img/0035.png)
 
 > **NOTA**: Probar opción `$SHOW = false` y `$SHOW = true`.
+
+> **NOTA**: Podemos probar directamente a escribir en la **Shell de jenkins** las variables `echo $NAME $LASTNAME $SHOW`.
