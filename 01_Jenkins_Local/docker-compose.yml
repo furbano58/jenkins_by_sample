@@ -12,7 +12,7 @@ services:
             - "8080:8080" 
         volumes:
             # Data que queremos que sobreviva
-            - "/home/hector/jenkins-by-sample/jenkins_home:/var/jenkins_home"
+            - "/home/hector/jenkins-by-sample/01_Jenkins_Local/jenkins_home:/var/jenkins_home"
         networks:
             - net
 networks:
