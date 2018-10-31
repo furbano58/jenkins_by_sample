@@ -1,0 +1,9 @@
+Started by user [8mha:////4GiEiazMjkZXmis8PfvERzSR2D1OpG3cl3D6yWUjRhZUAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/Test
+[Test] $ /bin/sh -xe /tmp/jenkins4181931934332488287.sh
++ NOMRE=ricardo
++ APELLIDO=gonzalez
++ /opt/script.sh gonzalez
+/tmp/jenkins4181931934332488287.sh: 4: /tmp/jenkins4181931934332488287.sh: /opt/script.sh: not found
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

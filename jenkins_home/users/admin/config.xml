@@ -39,5 +39,11 @@
     <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.22">
       <emailAddress>admin@admin.com</emailAddress>
     </hudson.tasks.Mailer_-UserProperty>
+    <jenkins.security.LastGrantedAuthoritiesProperty>
+      <roles>
+        <string>authenticated</string>
+      </roles>
+      <timestamp>1541004753375</timestamp>
+    </jenkins.security.LastGrantedAuthoritiesProperty>
   </properties>
 </user>
