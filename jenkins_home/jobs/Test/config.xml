@@ -23,6 +23,11 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>SHOW</name>
+          <description></description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -35,7 +40,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;Hola, $NAME $LASTNAME&quot;</command>
+      <command>/opt/script.1.sh $NAME $LASTNAME $SHOW</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
