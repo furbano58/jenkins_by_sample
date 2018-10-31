@@ -3,7 +3,29 @@
   <actions/>
   <description>Esto es un job de Test.</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>NAME</name>
+          <description></description>
+          <defaultValue>ricardo</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>LASTNAME</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>gonzalez</string>
+              <string>marquez</string>
+              <string>velazquez</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -13,10 +35,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>NOMBRE=ricardo
-APELLIDO=gonzalez
-
-/opt/script.sh $NOMBRE $APELLIDO</command>
+      <command>echo &quot;Hola, $NAME $LASTNAME&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
