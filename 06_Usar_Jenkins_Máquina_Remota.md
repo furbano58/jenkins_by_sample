@@ -203,9 +203,65 @@ services:
         ports: 
             - "8080:8080" 
         volumes:
-            - "/home/hector/jenkins-by-sample/01_Jenkins_Local/jenkins_home:/var/jenkins_home"
+            - "$PWD/jenkins_home:/var/jenkins_home"
         networks:
             - net
 networks:
     net:
+```
+
+Ahora incluiremos la configuración necesaria para que este servicio use el contenedor **ssh** que creamos anteriormente.
+
+_[Dockerfile](./Dockerfile)_
+```diff
+version: '3'
+services:
+    jenkins:
+        container_name: jenkins 
+        image: jenkins/jenkins 
+        ports: 
+            - "8080:8080" 
+        volumes:
+            - "$PWD/jenkins_home:/var/jenkins_home"
+        networks:
+            - net
+++  remote_host:
+++      container_name: remote-host
+++      image: remote-host
+++      build:
+++          context: centos7
+++      networks:
+++          - net            
+networks:
+    net:
+```
+
+> **NOTA**: No olvidar haber creado anteriormente la carpeta **jenkins_home**, `mkdir jenkins_home`, dónde alojaremos nuestro contenedor de jenkins, y haberle otorgado permisos de ejecución `sudo chwon 1000 -R jenkins_home`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ mkdir jenkins_home
+demo@VirtualBox:~/Demo_Docker$ sudo su
+[sudo] password for demo:
+root@VirtualBox:~/Demo_Docker$ chown 1000 -R jenkins_home
+root@VirtualBox:~/Demo_Docker$ exit
+```
+
+Finalmente lanzaremos el servicio mediante el comando de **docker-compose** `docker-compose up -d`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ docker-compose up -d
+Starting jenkins     ... done
+Creating remote-host ... done
+```
+
+Si ejecutamos el comando `docker ps` podremos ver los dos contenedores que se están ejecutando:
+
+* **remote-host** como nuestra servidor ssh.
+* **jenkins** como nuestro servicio de **jenkins**.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ docker ps
+CONTAINER ID IMAGE           COMMAND   CREATED   STATUS    PORTS.   NAMES
+865645b9cf44 remote-host     "/bin..." About ..  Up Abou..          remote-host
+594617c9c032 jenkins/jenkins "/sbi..." 6 mi...   Up Abou.. 0.0...   jenkins
 ```
