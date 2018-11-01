@@ -1,6 +1,6 @@
 ---------------------------------------------------------
 
-### Job With Ansible
+### Security In Jobs
 
 ---------------------------------------------------------
 
@@ -136,3 +136,17 @@ Ahora comprobamos los permisos de **ricardo accediendo a su perfil desde una ven
 ![00062.png](./img/0062.png)
 
 #### Ejercicio - Crear usuarios y asignarle roles con distintos permisos.
+
+* Usuario sólo lectura.
+* Usuario sólo ejecución de jobs.
+
+#### Limitar Acceso a determinados Jobs
+
+El primer paso consiste en quitarle el acceso a todos los jobs.
+
+> **NOTA IMPORTANTE** El sistema que permite restringir el acceso a ciertos **jobs** necesita de la existencia de un patrón en el nombre de los **Jobs**.
+
+![00065.png](./img/0065.png)
+
+> **NOTA**: Es necesario una vez creada la nueva asignación de permisos al role, reasignarlo.
+
