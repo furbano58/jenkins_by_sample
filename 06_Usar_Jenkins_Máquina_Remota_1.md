@@ -59,6 +59,8 @@ RUN useradd remote_user && \
 ++  chmod 700 /home/remote_user/.ssh
 ```
 
+#### Creación de llaves SSH
+
 Creamos **llaves ssh** para la comunicación con el contenedor.
 
 > Nota: Es importante generar las llaves **ssh** usando el comando `ssh-keygen -f remote-key`.
@@ -87,7 +89,7 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-Se habrán generado dos nuevos archivos [remote-key](./remote-key) y [remote-key.pub](./remote-key.pub), los cuales copiaremos dentro del contenedor con el comando `COPY remote-key.pub /home/remote_user/.ssh/authorized_keys`.
+Se habrán generado dos nuevos archivos [remote-key](./remote-key) y [remote-key.pub](./remote-key.pub), los cuales copiaremos dentro del contenedor con el comando de Dockerfile `COPY remote-key.pub /home/remote_user/.ssh/authorized_keys`.
 
 _[Dockerfile](./Dockerfile)_
 ```diff
@@ -236,7 +238,7 @@ networks:
     net:
 ```
 
-> **NOTA**: No olvidar haber creado anteriormente la carpeta **jenkins_home**, `mkdir jenkins_home`, dónde alojaremos nuestro contenedor de jenkins, y haberle otorgado permisos de ejecución `sudo chwon 1000 -R jenkins_home`.
+> **NOTA**: No olvidar haber creado anteriormente la carpeta **jenkins_home**, `mkdir jenkins_home`, dónde alojaremos nuestro contenedor de jenkins, y haberle otorgado permisos de ejecución `sudo chown 1000 -R jenkins_home`.
 
 ```bash
 demo@VirtualBox:~/Demo_Docker$ mkdir jenkins_home
@@ -268,10 +270,10 @@ CONTAINER ID IMAGE           COMMAND   CREATED   STATUS    PORTS.   NAMES
 
 * **¿Cómo validamos que Jenkins pueda conectarse al servidor generado mediante docker?**
 
-Para ello usaremos el comando `docker exec -ti jenkins bash -c "ping remote_host"`
+Para ello usaremos el comando `docker exec -ti jenkins bash -c "ping remote-host"`
 
 ```bash
-demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash -c "ping remote_host"
+demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash -c "ping remote-host"
 PING remote_host (172.19.0.3) 56(84) bytes of data.
 64 bytes from remote-host.02_jenkins_server_ssh_net (172.19.0.3): icmp_seq=1 ttl=64 time=0.117 ms
 64 bytes from remote-host.02_jenkins_server_ssh_net (172.19.0.3): icmp_seq=2 ttl=64 time=0.074 ms
@@ -288,7 +290,8 @@ demo@VirtualBox:~/Demo_Docker$
 Si nos conectamos desde **jenkins** mediante **ssh**, `ssh remote_user@remote_host`, veremos el siguiente resultado.
 
 ```bash
-demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bashjenkins@594617c9c032:/$ ssh remote_user@remote_host
+demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash
+jenkins@594617c9c032:/$ ssh remote_user@remote-host
 The authenticity of host 'remote_host (172.19.0.3)' can't be established.
 ECDSA key fingerprint is SHA256:F5R+9HPGON+uv1TTDl+jmnEgkxe/m2WpYnqFhvpIWV0.
 Are you sure you want to continue connecting (yes/no)? yes
@@ -314,7 +317,7 @@ demo@VirtualBox:~/Demo_Docker$
 
 * **¿Cómo podríamos conectarnos usando las llaves generadas?**
 
-Pra ello es necesario copiar la llave generada dentro del contenedor mediante `docker cp remote-key jenkins:/tmp`, para posteriormente borrarla (Dentro de la carpeta de centos7).
+Para ello es necesario copiar la llave generada dentro del contenedor mediante `docker cp remote-key jenkins:/tmp` (**como usuario root**, `sudo su`), para posteriormente borrarla (Dentro de la carpeta de centos7).
 
 ```bash
 demo@VirtualBox:~/Demo_Docker$ docker cp remote-key jenkins:/tmp
