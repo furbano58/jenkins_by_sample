@@ -18,3 +18,7 @@ c3aab8f70884458aa8d12f89d6ddfacb
 Una vez dentro de **jenkins** accederemos a **Administrar jenkins** > **Administrar plugins** y seleccionaremos la opción de 
 
 ![./img/00036.png](./img/0036.png)
+
+Seleccionamos el tab de **Todos los plugins** y filtrando por **SSH** seleccionamos el plugin llamado **SSH**.
+
+![./img/00037.png](./img/0037.png)
