@@ -4,9 +4,15 @@
 
 ---------------------------------------------------------
 
+#### Notas imporantes ejemplo
+
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
+
 > **NOTA**: Antes de comenzar revisar que servicios estan conectados `docker ps` y en caso de existir contenedores abiertos cerrarlos, `docker rm -fv <conatiner-name>`
 
 En este jobs tomaremos un backup de nuestra base de datos para subirlo a **S3**.
+
+#### Inicio ejemplo
 
 Para ello cogeremos el ejemplo anterior e incluiremos un nuevo servicio de base de datos:
 
@@ -57,6 +63,8 @@ demo@VirtualBox:~/Demo_Docker$ sudo su
 root@VirtualBox:~/Demo_Docker$ chown 1000 -R jenkins_home
 root@VirtualBox:~/Demo_Docker$ chown 1000 -R db_data
 ```
+
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
 Ya podríamos ejecutar el comando `docker-compose up -d`.
 
@@ -123,9 +131,11 @@ RUN /usr/sbin/sshd-keygen > /dev/null 2>&1
 CMD /usr/sbin/sshd -D
 ```
 
-Una vez modificado utilizaremos el comando `docker-compose build` para reconstruir el servicio.
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
 > **NOTA**: en nuestro caso como no se generó todavía usaremos `docker-compose up -d`.
+
+---------------------------------------------
 
 > **NOTA**: Al haber iniciado una nueva instalación deberemos obtener el password de administrador con el comando de consola `docker exec -ti jenkins bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"`.
 
@@ -142,3 +152,118 @@ Y accederemos al contenido de la llave para incluirlo dentro de la credencial.
 ```bash
 demo@VirtualBox:~/Demo_Docker$ docker cp remote-key jenkins:/tmp
 ```
+
+---------------------------------------------
+
+#### Crear Base de Datos MySQL
+
+Accedemos a la terminal del contenedor del host remoto **remote-host**, `docker exec -ti remote-host bash`, para ejecutar un ping `ping db_host`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ docker exec -ti remote-host bash
+[root@5e24a44906ea /]# ping db_host
+PING db_host (192.168.128.2) 56(84) bytes of data.
+64 bytes from db.03_jenkins_aws_net (192.168.128.2): icmp_seq=1 ttl=64 time=0.094 ms
+64 bytes from db.03_jenkins_aws_net (192.168.128.2): icmp_seq=2 ttl=64 time=0.048 ms
+```
+
+Desde aquí accederemos al host de la base de datos `mysql -u root -h db_host -p` con el usuario root e introducidos el password (`1234`).
+
+```bash
+[root@5e24a44906ea /]# mysql -u root -h db_host -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.24 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]>
+```
+
+Mostramos las bases de datos existentes, `show databases;` 
+
+```bash
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+MySQL [(none)]>
+```
+
+Y creamos una nueva base de datos, `create database testdb;` y cambiamos de usuario `use testdb`.
+
+```bash
+MySQL [(none)]> create database testdb;
+Query OK, 1 row affected (0.00 sec)
+
+MySQL [(none)]> use testdb
+Database changed
+```
+
+Añadimos la tabla **info**, con varias columnas, `create table info (name varchar (20), lastname varchar(20), age int(2));`.
+
+```bash
+MySQL [testdb]> create table info (name varchar (20), lastname varchar(20), age int(2));
+Query OK, 0 rows affected (0.02 sec)
+```
+
+Para ahora mostrar la tabla creada `show table;`
+
+```bash
+MySQL [testdb]> show tables;
++------------------+
+| Tables_in_testdb |
++------------------+
+| info             |
++------------------+
+1 row in set (0.00 sec)
+```
+
+Y su contenido `desc info`.
+
+```bash
+MySQL [testdb]> desc info;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| name     | varchar(20) | YES  |     | NULL    |       |
+| lastname | varchar(20) | YES  |     | NULL    |       |
+| age      | int(2)      | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+MySQL [testdb]>
+``` 
+
+Creamos una entrada en esa tabla, `insert into info values ('ricardo', 'gonzalez', 21);`, y la mostramos `select * from info;`.
+
+```bash
+MySQL [testdb]> select * from info;
+Empty set (0.00 sec)
+
+MySQL [testdb]> insert into info values ('ricardo', 'gonzalez', 21);
+Query OK, 1 row affected (0.00 sec)
+
+MySQL [testdb]> select * from info;
++---------+----------+------+
+| name    | lastname | age  |
++---------+----------+------+
+| ricardo | gonzalez |   21 |
++---------+----------+------+
+1 row in set (0.01 sec)
+
+MySQL [testdb]>
+```
+
+#### Crear Bucket S3 Amazon
+

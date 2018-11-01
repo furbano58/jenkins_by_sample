@@ -191,11 +191,13 @@ RUN /usr/sbin/sshd-keygen > /dev/null 2>&1
 CMD /usr/sbin/sshd -D
 ```
 
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
+
 #### Modificamos nuestro Docker-Compose para utilizar la máquina virtual
 
 Inicialmente disponíamos de la siguiente configuración para nuestro **docker-compose**
 
-_[Dockerfile](./Dockerfile)_
+_[docker-compose.yml](./docker-compose.yml)_
 ```dockerfile
 version: '3'
 services:
@@ -237,6 +239,8 @@ services:
 networks:
     net:
 ```
+
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
 > **NOTA**: No olvidar haber creado anteriormente la carpeta **jenkins_home**, `mkdir jenkins_home`, dónde alojaremos nuestro contenedor de jenkins, y haberle otorgado permisos de ejecución `sudo chown 1000 -R jenkins_home`.
 
@@ -287,7 +291,7 @@ rtt min/avg/max/mdev = 0.055/0.075/0.117/0.027 ms
 demo@VirtualBox:~/Demo_Docker$
 ```
 
-Si nos conectamos desde **jenkins** mediante **ssh**, `ssh remote_user@remote_host`, veremos el siguiente resultado.
+Si nos conectamos desde **jenkins** mediante **ssh**, `ssh remote_user@remote-host`, veremos el siguiente resultado, (password `1234`).
 
 ```bash
 demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash
@@ -317,10 +321,10 @@ demo@VirtualBox:~/Demo_Docker$
 
 * **¿Cómo podríamos conectarnos usando las llaves generadas?**
 
-Para ello es necesario copiar la llave generada dentro del contenedor mediante `docker cp remote-key jenkins:/tmp` (**como usuario root**, `sudo su`), para posteriormente borrarla (Dentro de la carpeta de centos7).
+Para ello es necesario copiar la llave generada dentro del contenedor (desde la carpeta **centos7**, `cd centos7`) mediante `docker cp remote-key jenkins:/tmp` (**como usuario root**, `sudo su`), para posteriormente borrarla (Dentro de la carpeta de centos7).
 
 ```bash
-demo@VirtualBox:~/Demo_Docker$ docker cp remote-key jenkins:/tmp
+demo@VirtualBox:~/Demo_Docker/centos7$ docker cp remote-key jenkins:/tmp
 ```
 
 Accedemos al contenedor `docker exec -ti jenkins bash`, para comprobar que se encuentra la llave dentro de la carpeta **tmp**.
@@ -334,10 +338,10 @@ hsperfdata_root                                       remote-key
 jetty-0.0.0.0-8080-war-_-any-2061485573331116894.dir  winstone6803440211979766254.jar
 ```
 
-Y ejecutamos el comando anterior para conectarse vía **ssh** incluyendo dicha llave, `ssh -i remote-key remote_user@remote_host`.
+Y ejecutamos el comando anterior para conectarse vía **ssh** incluyendo dicha llave, `ssh -i remote-key remote_user@remote-host`, (incluimos el password `1234`).
 
 ```bash
-jenkins@594617c9c032:/tmp$ ssh -i remote-key remote_user@remote_host
+jenkins@594617c9c032:/tmp$ ssh -i remote-key remote_user@remote-host
 Last login: Thu Nov  1 10:37:56 2018 from jenkins.02_jenkins_server_ssh_net
 [remote_user@865645b9cf44 ~]$
 ```
