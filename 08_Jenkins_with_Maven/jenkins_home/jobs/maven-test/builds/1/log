@@ -1,0 +1,21 @@
+Started by user [8mha:////4Oc0i4rz+Vh4ONALKhPx+kpZavPlp3EPjPI5tgR71osCAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/maven-test
+Cloning the remote Git repository
+Cloning repository https://github.com/jenkins-docs/simple-java-maven-app
+ > git init /var/jenkins_home/workspace/maven-test # timeout=10
+Fetching upstream changes from https://github.com/jenkins-docs/simple-java-maven-app
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/jenkins-docs/simple-java-maven-app +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/jenkins-docs/simple-java-maven-app # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/jenkins-docs/simple-java-maven-app # timeout=10
+Fetching upstream changes from https://github.com/jenkins-docs/simple-java-maven-app
+ > git fetch --tags --progress https://github.com/jenkins-docs/simple-java-maven-app +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 0d85b7e1fd39bc6978511f92381aa10534ca4c1b (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0d85b7e1fd39bc6978511f92381aa10534ca4c1b
+Commit message: "Amend README.md"
+First time build. Skipping changelog.
+Finished: SUCCESS
