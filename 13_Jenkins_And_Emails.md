@@ -57,5 +57,7 @@ Si vemos la salida de consola, se nos informará de un error y el envío de un e
 
 ![00077.png](./img/0077.png)
 
+> **NOTA**: Si corrigiesemos el error y volviésemos a construir el job, se nos notificaría que el Job volvió a su normalidad.
+
 
 
