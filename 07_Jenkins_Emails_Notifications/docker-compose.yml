@@ -1,0 +1,20 @@
+# Definición del archivo básica de docker para definición del servicio de Jenkins
+version: '3'
+services:
+    jenkins:
+        # nombre del container
+        container_name: jenkins 
+        # imagen a partir de la cual trabajaremos o de plantilla(la que descargamos 
+        # anteriormente)
+        image: jenkins/jenkins 
+        ports: 
+            # puerto de la máquina : puerto del contenedor
+            - "8080:8080" 
+        volumes:
+            # Data que queremos que sobreviva
+            - "$PWD/jenkins_home:/var/jenkins_home"
+        networks:
+            - net
+networks:
+    net:   
+             

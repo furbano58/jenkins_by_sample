@@ -89,3 +89,58 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ++ 127.0.0.1 jenkins.local
 ```
+
+#### Construir Jobs con Cron
+
+Esto permite programar cada Jobs para que se ejecute en un momento determinado. Para ello accederemos a la configuración de la tarea que queremos programar en la sección de **Disparadores de ejecuciones**.
+
+![00070.png](./img/0070.png)
+
+> **NOTA**: este sistema de programación utiliza el formato **CRON**, para evitar aprenderlo podemos usar el conversor siguiente [https://crontab.guru/](https://crontab.guru/)
+
+Para evitar colisiones entre Jobs, podemos sustituir el primer cero de la programación por **H** para que **Jenkins** puede decidir en que instante dentro de esa hora puede lanzar el jobs para evitar colisiones.
+
+#### Ejercicio - Programar nuevas ejecuciones.
+
+#### Construir Jobs desde un Script - Sin parámetros
+
+> **NOTA**: Para ello es necesario tener un usuario con un role que le permita solo **leer** y **ejecutar jobs**. No olvidar **incluir** permisos de **lectura Global**.
+
+Una vez creado el usuario con el role que lance los **Jobs**, usaremos **curl** para lanzarlos.
+
+Deberemos activar el módulo dentro de **Administrar Jenkins** >> **Configuración Global de la Seguridad**, en la sección de **CSRF Protection** (la cual protege la aplicación de ataques externos y deberá estar activa)
+
+![00071.png](./img/0071.png)
+
+Ahora generaremos nuestro **script** que lance la ejecución.
+Este dispondrá del nombre del contenedor al que llamar `jenkins` y el passwor de acceso al mismo `tigger`, `tigger:tigger`, más la url de acceso a **crumb**. con nuestro dominio, en este caso `localhost:8080`.
+
+A continuación incluirá la url del **job** a construir que resultaría de la url de construcción del mismo `http://localhost:8080/job/test-curl/build?delay=0sec`.
+
+```sh
+crumb=$(curl -u "tigger:tigger" -s 'http://localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+curl -u "tigger:tigger" -H "$crumb" -X POST http://localhost:8080/job/test-curl/build?delay=0sec
+``` 
+
+> **IMPOTANTE** es necesario otorgar permisos de ejecución al script usando `chmod +x crumb.sh`
+
+Ahora si ejecutamos el script en consola `./crumb.sh`, previa asignación de permisos de ejecución `./chmod +x crumb.sh`, se construirá nuevamente el job.
+
+Podemos ver en terminal de jenkins quien lanzó el jobs.
+
+![00072.png](./img/0072.png)
+
+
+#### Construir Jobs desde un Script - Con parámetros
+
+Para incluir un job con parmateros capturaremos la url del job seguida de `//buildWithParameters?`, más los parámetros con los valores que deseemos incluir.
+
+```sh
+crumb=$(curl -u "tigger:tigger" -s 'http://localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+curl -u "tigger:tigger" -H "$crumb" -X POST http://localhost:8080/job/test-curl/build?delay=0sec
+curl -u "tigger:tigger" -H "$crumb" -X POST http://localhost:8080/job/test-curl-con-parametros/buildWithParameters?NAME=manolo&LASTNAME=garcia
+``` 
+
+Podemos ver en terminal de jenkins quien lanzó el jobs.
+
+![00072.png](./img/0072.png)
