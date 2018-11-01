@@ -41,7 +41,7 @@ Y añadimos nuestra credencial mediante llave de acceso.
 
 Para configurarlo accederemos a **Administrar Jenkins** > **Configurar el Sistema**.
 
-![./img/00039.png](./img/0039.png)
+![./img/00040.png](./img/0040.png)
 
 Y buscamos la opción de **SSH remote host**
 
