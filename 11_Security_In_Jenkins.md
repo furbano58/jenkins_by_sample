@@ -84,3 +84,55 @@ Ahora si accedemos nuevamente a **Administrar Jenkins** >> **Configuración glob
 El siguiente paso consistirá en acceder a **Administrar Jenkins** >> **Manage and Assign Role** para gestionar los permisos de acceso.
 
 ![00056.png](./img/0056.png)
+
+![00057.png](./img/0057.png)
+
+#### Crear nuevos usuarios
+
+Para crear nuevos usuarios accederemos a **Administrar Jenkins** >> **Gestión de usuarios**, para ver los usuarios actuales existentes.
+
+![00058.png](./img/0058.png)
+
+Es aquí dónde podremos crear un nuevo usuario **mateo**.
+
+![00059.png](./img/0059.png)
+
+
+#### Crear Nuevo Role
+
+Para crear un nuevo role accederemos a **Administrar Jenkins** >> **Manage and Assign Role**, y seleccionaremos **Manage Roles**.
+
+![00057.png](./img/0057.png)
+
+> **NOTA**: es necesario tener siempre el **Role Global de sólo lectura**
+
+Nosotros crearemos un nuevo role con permisos de **sólo lectura**, que sólo puede **loguearse** y **ver los jobs**, modificando la configuración del role de **soloLectura**
+
+![00061.png](./img/0060.png)
+
+Para tener acceso a los jobs deberemos asignar acceso de sólo lectura a las tareas.
+
+![00063.png](./img/0063.png)
+
+* **¿Cómo asignar acceso a la ejecución de tareas?**
+
+Para ello le asignaremos permisos de lectura, y leer y construir tareas.
+
+![00064.png](./img/0064.png)
+
+#### Asignar Role
+
+Para asignar un role accederemos a **Administrar Jenkins** >> **Manage and Assign Role**, y seleccionaremos **Assign Roles**.
+
+![00057.png](./img/0057.png)
+
+Y posteriormente acceder a **Administrar Jenkins** >> **Manage and Assign Role**, seleccionar **Assign Roles** y asignarle un nuevo role de **solo lectura** a **ricardo**.
+
+![00061.png](./img/0061.png)
+
+
+Ahora comprobamos los permisos de **ricardo accediendo a su perfil desde una ventana en incógnito, para ver que sólo tiene acceso de **soloLectura**.
+
+![00062.png](./img/0062.png)
+
+#### Ejercicio - Crear usuarios y asignarle roles con distintos permisos.
