@@ -1,0 +1,98 @@
+job('job_dsl_example') {
+
+    description('This is my awesome Job')
+
+  
+    parameters {
+        stringParam('Planet', defaultValue = 'world', description = 'This is the world')
+	booleanParam('FLAG', true)
+        choiceParam('OPTION', ['option 1 (default)', 'option 2', 'option 3'])
+    }
+
+    scm {
+        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master')
+    }
+
+    steps {
+        shell("echo 'Hello World'")
+        shell("echo 'Hello World2'")
+    }
+
+    publishers {
+        mailer('me@example.com', true, true)
+    }
+}
+
+
+job('ansible-dsl') {
+
+    description('Este es un job de ansible con dsl')
+
+  
+    parameters {
+  
+        choiceParam('EDAD', ['20', '21', '22', '23', '24', '25'])
+    }
+
+
+    steps {
+
+        wrappers {
+            colorizeOutput(colorMap = 'xterm')
+      }
+        ansiblePlaybook('/var/jenkins_home/ansible/people.yml') {
+            inventoryPath('/var/jenkins_home/ansible/hosts')
+            colorizedOutput(true)
+            extraVars {
+                extraVar("EDAD", '${EDAD}', false)
+            }
+        }
+    }
+
+}
+
+job('maven_dsl') {
+
+    description('Maven dsl project')
+
+    scm {
+        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master', {node -> node / 'extensions' << '' })
+    }
+  
+    steps {
+        maven {
+            mavenInstallation('jenkins-maven')
+            goals('-B -DskipTests clean package')
+        }
+        maven {
+            mavenInstallation('jenkins-maven')
+            goals('test')
+        }
+        shell('''
+            echo ********************
+            echo "Desplegando el jar"
+            echo ********************
+
+            java -jar /var/jenkins_home/workspace/maven-job/target/my-app-1.0-SNAPSHOT.jar
+        ''')
+    }
+
+    publishers {
+        archiveArtifacts('target/*.jar')
+        archiveJunit('target/surefire-reports/*.xml')
+        mailer('ricardo.andre.gonzalez07@gmail.com', true, true)
+    }
+}
+
+job('job-created-from-git') {
+
+   steps { 
+        shell('''
+            echo ********************
+            echo "Por fin estamos listos!!!!!!!!"
+            echo ********************
+
+        ''')
+  }
+}
+
