@@ -1,6 +1,4 @@
----------------------------------------------------------
-
-### Primeros Pasos
+# Primeros Pasos
 
 ---------------------------------------------------------
 
@@ -51,7 +49,13 @@ Ahora modificaremos el jobs accediendo a la pestaña de **configruación** del j
 
 ![./img/00014.png](./img/0014.png)
 
-#### Funciones de linux Shell
+[Volver al Inicio](#primeros-pasos)
+
+
+
+## FUNCIONES DE LINUX EN LA SHELL DE JENKINS
+
+---------------------------------------------------------
 
 Comando Shell a incluir `echo "La fecha y hora es: $(date)"`, una vez guardado ejecutaremos construir jobs y accederemos nuevamente a la terminal para visualizar el output.
 
@@ -59,7 +63,13 @@ Comando Shell a incluir `echo "La fecha y hora es: $(date)"`, una vez guardado e
 
 ![./img/00016.png](./img/0016.png)
 
-#### Variables de entorno
+[Volver al Inicio](#primeros-pasos)
+
+
+
+### VARIABLES DE ENTORNO
+
+---------------------------------------------------------
 
 Comandos Shell a incluir:
 
@@ -99,6 +109,9 @@ jenkins@c896504a004b:/tmp$ cat nombre
 hola, ricardo
 ```
 
+---------------------------------------------------------
+
+
 **Ejercicio:** Crear una nueva modificación en shell con el código:
 
 ```bash
@@ -109,3 +122,5 @@ echo "hola, $NOMBRE. La hora es $(date +%F)" > /tmp/nombre
 ![./img/00019.png](./img/0019.png)
 
 ![./img/00020.png](./img/0020.png)
+
+[Volver al Inicio](#primeros-pasos)

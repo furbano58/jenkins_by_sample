@@ -1,12 +1,16 @@
----------------------------------------------------------
-
-### Usar Jenkins en Una Máquina Remota Vía SSH
+# Usar Jenkins en Una Máquina Remota Vía SSH
 
 ---------------------------------------------------------
-
-#### Generamos Contenedor Docker Para la Máquina Virtual.
 
 Para probar esta tecnología crearemos inicialmente una máquina remota, para ello usaremos un contendor de **docker** que contendrá un servicio **SSH** a través de **centos**.
+
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh)
+
+
+
+## GENERAR CONTENEDOR DOCKER PARA LA MÁQUINA VIRTUAL
+
+---------------------------------------------------------
 
 Para ello crearemos una carpeta dónde alojaremos nuestro contenedor `mkdir centos7`, para acceder `cd centos7` y posteriormente crear nuestro [Dockerfile](./Dockerfile).
 
@@ -23,7 +27,7 @@ _[Dockerfile](./Dockerfile)_
 FROM centos
 ```
 
-E incluiremos la instalación de **openSSH-server**.
+Y la instalación de **openSSH-server**.
 
 _[Dockerfile](./Dockerfile)_
 ```diff
@@ -59,9 +63,15 @@ RUN useradd remote_user && \
 ++  chmod 700 /home/remote_user/.ssh
 ```
 
-#### Creación de llaves SSH
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh)
 
-Creamos **llaves ssh** para la comunicación con el contenedor.
+
+
+## CREACIÓN DE LLAVES SSH
+
+---------------------------------------------------------
+
+Crearemos las **llaves ssh** para la comunicación con el contenedor como sistema de autentificarnos en la comunicación con el contenedor.
 
 > Nota: Es importante generar las llaves **ssh** usando el comando `ssh-keygen -f remote-key`.
 
@@ -193,7 +203,12 @@ CMD /usr/sbin/sshd -D
 
 > **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
-#### Modificamos nuestro Docker-Compose para utilizar la máquina virtual
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh)
+
+
+## MODIFICAR DOCKER-COMPOSE PARA UTILIZAR LA MÁQUINA VIRTUAL
+
+---------------------------------------------------------
 
 Inicialmente disponíamos de la siguiente configuración para nuestro **docker-compose**
 
@@ -346,6 +361,8 @@ Last login: Thu Nov  1 10:37:56 2018 from jenkins.02_jenkins_server_ssh_net
 [remote_user@865645b9cf44 ~]$
 ```
 
-Ya estaremos conectados a nuestro servidor.
+Ya estarríamos conectados a nuestro servidor.
 
-**CON Jenkins HAREMOS LO MISMO**
+**AHORA CON Jenkins HAREMOS LO MISMO**
+
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh)

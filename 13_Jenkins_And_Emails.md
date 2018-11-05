@@ -1,10 +1,10 @@
----------------------------------------------------------
-
-### Emails
+# Emails
 
 ---------------------------------------------------------
 
-#### Instalación básica inicial
+## INSTALACIÓN BÁSICA INICIAL
+
+---------------------------------------------------------
 
 Para ello crearemos nuestra carpeta **jenkins_home** dónde se alojara jenkins usando `mkdir jenkins_home` para posteriormente asignarle permisos mediante `chown 1000 -R jenkins_home` como usuario root (`sudo su`).
 
@@ -27,7 +27,13 @@ CONTAINER ID IMAGE    COMMAND      CREATED   STATUS  PORTS     NAMES
 7f41ec7f07ac jenkin.. "/sbin/t..." 55 se...  Up 3..  0.0....   jenkins
 ```
 
-#### Notificaciones con Jenkins vía Email
+[Volver al Inicio](#emails)
+
+
+
+## NOTIFICACIONES CON JENKINS VÍA EMAIL
+
+---------------------------------------------------------
 
 Para llevar a cabo las notificaciones vía email, es necesrio incluir el **plugin mailer**. Este plugin suele venir instalado por defecto, para comporbarlo accederemos a **Administrar Jenkins** >> **Gestor de Plugins**.
 
@@ -45,7 +51,13 @@ Y abrimos nuestra cuenta de gmail (**aplicaciones menos seguras gmail**) [https:
 
 Posteriormente podremos probar el envío del correo en la opción habilitada.
 
-#### Integrar Notificaciones en Nuestros Jobs
+[Volver al Inicio](#emails)
+
+
+
+## INTEGRAR NOTIFICACIONES EN NUESTROS JOBS
+
+---------------------------------------------------------
 
 Para integrarlo incluimos dentro de la configuración del Job en la sección de **Acciones para ejecutar después** la opción de enviar el correo a una determinada dirección.
 
@@ -59,5 +71,4 @@ Si vemos la salida de consola, se nos informará de un error y el envío de un e
 
 > **NOTA**: Si corrigiesemos el error y volviésemos a construir el job, se nos notificaría que el Job volvió a su normalidad.
 
-
-
+[Volver al Inicio](#emails)

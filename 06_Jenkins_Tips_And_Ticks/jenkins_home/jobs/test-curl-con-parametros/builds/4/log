@@ -1,6 +1,0 @@
-Started by user [8mha:////4IucOttydxfjG0yQ+96ApShDPGkpBsJdVip9tBna6PzNAAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYe/dLi1CL9ksz09NQiABsMxGjBAAAA[0mtigger
-Building in workspace /var/jenkins_home/workspace/test-curl-con-parametros
-[test-curl-con-parametros] $ /bin/sh -xe /tmp/jenkins7709850955284166823.sh
-+ echo Hola manolo perez
-Hola manolo perez
-Finished: SUCCESS

@@ -1,10 +1,10 @@
----------------------------------------------------------
-
-### Tips & Ticks
+# Tips & Ticks
 
 ---------------------------------------------------------
 
-#### Instalación básica inicial
+## INSTALACIÓN BÁSICA INICIAL
+
+---------------------------------------------------------
 
 Para ello crearemos nuestra carpeta **jenkins_home** dónde se alojara jenkins usando `mkdir jenkins_home` para posteriormente asignarle permisos mediante `chown 1000 -R jenkins_home` como usuario root (`sudo su`).
 
@@ -27,7 +27,13 @@ CONTAINER ID IMAGE    COMMAND      CREATED   STATUS  PORTS     NAMES
 7f41ec7f07ac jenkin.. "/sbin/t..." 55 se...  Up 3..  0.0....   jenkins
 ```
 
-#### Variables de Entorno de Jenkins
+[Volver al Inicio](#tips--ticks)
+
+
+
+## VARIABLES DE ENTORNO EN JENKINS
+
+---------------------------------------------------------
 
 (Source: [https://wiki.jenkins.io/display/JENKINS/Building+a+software+project](https://wiki.jenkins.io/display/JENKINS/Building+a+software+project))
 
@@ -47,7 +53,13 @@ Guardaremos el **Jobs**, lo **construiremos** y veremos la salida **output**.
 
 ![00066.png](./img/0066.png)
 
-#### Crear Variables de Entorno Propias de Jenkins
+[Volver al Inicio](#tips--ticks)
+
+
+
+## CREAR VARIABLES DE ENTORNO PROPIAS EN JENKINS
+
+---------------------------------------------------------
 
 Para crear nuestras propias variables de entorno accederemos a **Administrar Jenkins** >> **Configurar el Sistema**, y marcamos la opción de variables de entorno, dónde incluiremos las que necesitemos en nuestro proyecto.
 
@@ -69,7 +81,13 @@ Guardaremos el **Jobs**, lo **construiremos** y veremos la salida **output**.
 
 ![00068.png](./img/0068.png)
 
-#### Cambiar url Jenkins
+[Volver al Inicio](#tips--ticks)
+
+
+
+## CAMBIAR URL DE REFERENCIA DE JENKINS
+
+---------------------------------------------------------
 
 Para ello acederemos a nuestro **Dashboard** de **Jenkins** para entrar en **Administrar Jenkins** >> **Configurar el Sistema**, y en la sección de **Jenkins Location** modificar la url.
 
@@ -90,7 +108,13 @@ ff02::2 ip6-allrouters
 ++ 127.0.0.1 jenkins.local
 ```
 
-#### Construir Jobs con Cron
+[Volver al Inicio](#tips--ticks)
+
+
+
+## CONSTRUIR JOBS CON CRON
+
+---------------------------------------------------------
 
 Esto permite programar cada Jobs para que se ejecute en un momento determinado. Para ello accederemos a la configuración de la tarea que queremos programar en la sección de **Disparadores de ejecuciones**.
 
@@ -100,9 +124,20 @@ Esto permite programar cada Jobs para que se ejecute en un momento determinado. 
 
 Para evitar colisiones entre Jobs, podemos sustituir el primer cero de la programación por **H** para que **Jenkins** puede decidir en que instante dentro de esa hora puede lanzar el jobs para evitar colisiones.
 
-#### Ejercicio - Programar nuevas ejecuciones.
+[Volver al Inicio](#tips--ticks)
 
-#### Construir Jobs desde un Script - Sin parámetros
+
+## EJERCICIO - Programar nuevas ejecuciones.
+
+---------------------------------------------------------
+
+[Volver al Inicio](#tips--ticks)
+
+
+
+## CONSTRUIR JOBS DESDE UN SCRIPT - Sin parámetros
+
+---------------------------------------------------------
 
 > **NOTA**: Para ello es necesario tener un usuario con un role que le permita solo **leer** y **ejecutar jobs**. No olvidar **incluir** permisos de **lectura Global**.
 
@@ -130,8 +165,13 @@ Podemos ver en terminal de jenkins quien lanzó el jobs.
 
 ![00072.png](./img/0072.png)
 
+[Volver al Inicio](#tips--ticks)
 
-#### Construir Jobs desde un Script - Con parámetros
+
+
+## CONSTRUIR JOBS DESDE UN SCRIPT - Con parámetros
+
+---------------------------------------------------------
 
 Para incluir un job con parmateros capturaremos la url del job seguida de `//buildWithParameters?`, más los parámetros con los valores que deseemos incluir.
 
@@ -144,3 +184,5 @@ curl -u "tigger:tigger" -H "$crumb" -X POST http://localhost:8080/job/test-curl-
 Podemos ver en terminal de jenkins quien lanzó el jobs.
 
 ![00072.png](./img/0072.png)
+
+[Volver al Inicio](#tips--ticks)

@@ -1,8 +1,8 @@
----------------------------------------------------------
-
-### Ejecutar script externo desde el job
+# Ejecutar script externo desde el job
 
 ---------------------------------------------------------
+
+En esta demo, veremos como ejecutar un script externo desde la **shell** de **Jenkins**. 
 
 Primeramente generaremos un script bash, en nuestro directorio raiz [script.sh](./script.sh).
 
@@ -52,11 +52,17 @@ demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash -c "sh /opt/script.s
 hola,
 ```
 
-**¿Cómo incluiríamos nuestras variables para la ejecución del script?**
+[Volver al Inicio](#ejecutar-script-externo-desde-el-job)
+
+
+
+## ¿CÓMO INCLUIRÍAMOS NUESTRAS VARIABLES PARA LA EJECUCIÓN DEL SCRIPT?
+
+---------------------------------------------------------
 
 Para ello incluiríamos en la shell de nuestro jobs de **jenkins** primeramente la línea de ejecución del script `/opt/script.sh` más la exportación de las variables requeridas `/opt/script.sh $NOMBRE $APELLIDO`.
 
-**Shell jenkins**
+__**Shell jenkins**__
 ```shell
 NOMBRE=ricardo
 APELLIDO=gonzalez
@@ -96,3 +102,5 @@ echo "hola, $NOMBRE $APELLIDO"
 Ahora guardamos el jobs, y volvemos a construirlo para acceder a la salida de terminal y visualizar el resultado.
 
 ![./img/00022.png](./img/0022.png)
+
+[Volver al Inicio](#ejecutar-script-externo-desde-el-job)

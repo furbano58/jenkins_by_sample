@@ -1,6 +1,4 @@
----------------------------------------------------------
-
-### Instalación de Jenkins
+# Instalación de Jenkins
 
 ---------------------------------------------------------
 
@@ -59,3 +57,5 @@ En indicamos la url de acceso a nuestra instalación, en este caso por defecto s
 Y accedemos a Jenkins ...
 
 ![./img/0006.png](./img/0006.png)
+
+[Volver al Inicio](#instalación-de-jenkins)

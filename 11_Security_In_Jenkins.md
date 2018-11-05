@@ -1,10 +1,10 @@
----------------------------------------------------------
-
-### Security In Jobs
+# Seguridad en Jenkins
 
 ---------------------------------------------------------
 
-#### Instalación básica inicial
+## INSTALACIÓN BÁSICA INICIAL
+
+---------------------------------------------------------
 
 Para ello crearemos nuestra carpeta **jenkins_home** dónde se alojara jenkins usando `mkdir jenkins_home` para posteriormente asignarle permisos mediante `chown 1000 -R jenkins_home` como usuario root (`sudo su`).
 
@@ -27,7 +27,13 @@ CONTAINER ID IMAGE    COMMAND      CREATED   STATUS  PORTS     NAMES
 7f41ec7f07ac jenkin.. "/sbin/t..." 55 se...  Up 3..  0.0....   jenkins
 ```
 
-#### Seguridad Básica | acceso libre
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+## SEGURIDAD BÁSICA | ACCESO LIBRE
+
+---------------------------------------------------------
 
 Aunque no es para nada recomendable, podemos permitir el acceso a cualquier usuario sin una autentificación previa. Para elo accederemos a **Administrar Jenkins** >> **Configuración global de la seguridad**
 
@@ -45,9 +51,19 @@ Una vez hecho podríamos intentar acceder desde una nueva venta de incógnito pa
 
 ![00047.png](./img/0047.png)
 
-#### Permitir Registro de Usuarios
+[Volver al Inicio](#seguridad-en-jenkins)
 
-Para ello, accederemos a **Administrar Jenkins** >> **Configuración global de la seguridad**, dónde marcaremos la opción de **Activar seguiridad**, e indicaremos que queremos que la seguridad **Usará bae de datos de Jenkins**, más la opciónd de **registrarse a los usuarios**.
+
+
+## PERMITIR REGISTRO DE USUARIOS
+
+---------------------------------------------------------
+
+### INTRODUCCIÓN
+
+---------------------------------------------------------
+
+Para ello, accederemos a **Administrar Jenkins** >> **Configuración global de la seguridad**, dónde marcaremos la opción de **Activar seguiridad**, e indicaremos que queremos que la seguridad **Usará bae de datos de Jenkins**, más la opción de **registrarse a los usuarios**.
 
 ![00048.png](./img/0048.png)
 
@@ -65,7 +81,13 @@ Si creamos el nuevo usuario y accedemos al **Dashboard** de **jenkins** veremos 
 
 ![00052.png](./img/0052.png)
 
-#### Permitir registro de usuarios
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+### PERMITIR REGISTRO DE USUARIOS
+
+---------------------------------------------------------
 
 Para gestionar el acceso al distinto contenido de **Jenkins** usaremos un **plugin** llamado **Role-based Authorization Strategy**.
 
@@ -87,7 +109,13 @@ El siguiente paso consistirá en acceder a **Administrar Jenkins** >> **Manage a
 
 ![00057.png](./img/0057.png)
 
-#### Crear nuevos usuarios
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+### CREAR NUEVOS USUARIOS
+
+---------------------------------------------------------
 
 Para crear nuevos usuarios accederemos a **Administrar Jenkins** >> **Gestión de usuarios**, para ver los usuarios actuales existentes.
 
@@ -97,8 +125,13 @@ Es aquí dónde podremos crear un nuevo usuario **mateo**.
 
 ![00059.png](./img/0059.png)
 
+[Volver al Inicio](#seguridad-en-jenkins)
 
-#### Crear Nuevo Role
+
+
+### COMO CREAR UN NUEVO ROLE
+
+---------------------------------------------------------
 
 Para crear un nuevo role accederemos a **Administrar Jenkins** >> **Manage and Assign Role**, y seleccionaremos **Manage Roles**.
 
@@ -120,7 +153,13 @@ Para ello le asignaremos permisos de lectura, y leer y construir tareas.
 
 ![00064.png](./img/0064.png)
 
-#### Asignar Role
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+### ASIGNAR UN ROLE A UN USUARIO
+
+---------------------------------------------------------
 
 Para asignar un role accederemos a **Administrar Jenkins** >> **Manage and Assign Role**, y seleccionaremos **Assign Roles**.
 
@@ -135,12 +174,25 @@ Ahora comprobamos los permisos de **ricardo accediendo a su perfil desde una ven
 
 ![00062.png](./img/0062.png)
 
-#### Ejercicio - Crear usuarios y asignarle roles con distintos permisos.
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+## EJERCICIO - Crear usuarios y asignarle roles con distintos permisos.
+
+---------------------------------------------------------
 
 * Usuario sólo lectura.
 * Usuario sólo ejecución de jobs.
 
-#### Limitar Acceso a determinados Jobs
+[Volver al Inicio](#seguridad-en-jenkins)
+
+
+
+
+## LIMITAR EL ACCESO SOLO A CIERTOS JOBS
+
+---------------------------------------------------------
 
 El primer paso consiste en quitarle el acceso a todos los jobs.
 
@@ -150,3 +202,4 @@ El primer paso consiste en quitarle el acceso a todos los jobs.
 
 > **NOTA**: Es necesario una vez creada la nueva asignación de permisos al role, reasignarlo.
 
+[Volver al Inicio](#seguridad-en-jenkins)

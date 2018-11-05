@@ -1,6 +1,0 @@
-Started by user [8mha:////4IucOttydxfjG0yQ+96ApShDPGkpBsJdVip9tBna6PzNAAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYe/dLi1CL9ksz09NQiABsMxGjBAAAA[0mtigger
-Building in workspace /var/jenkins_home/workspace/Test Curl
-[Test Curl] $ /bin/sh -xe /tmp/jenkins5003789320492508205.sh
-+ echo hola mundo
-hola mundo
-Finished: SUCCESS

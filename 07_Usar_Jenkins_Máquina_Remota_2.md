@@ -1,6 +1,4 @@
----------------------------------------------------------
-
-### Usar Jenkins en Una Máquina Remota Vía SSH | Parte 2
+# Usar Jenkins en Una Máquina Remota Vía SSH | Parte 2
 
 ---------------------------------------------------------
 
@@ -29,7 +27,13 @@ Ahora seleccionamos la opción de **instalar sin reiniciar** y marcamos la opci�
 
 Ahora podremos acceder a **Todos los plugins** para comprobar que efectivamente se instaló dicho plugin.
 
-#### Configurar Plugin SSH
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh-|-parte-2)
+
+
+
+## CONFIGURAR PLUGIN SSH
+
+---------------------------------------------------------
 
 Previamnete es necesario añadir nuestras credenciales a **jenkins** para ello accedemos a **Credentials** > **System** > **Global Credentials**
 
@@ -46,3 +50,5 @@ Para configurarlo accederemos a **Administrar Jenkins** > **Configurar el Sistem
 Y buscamos la opción de **SSH remote host**
 
 ![./img/00042.png](./img/0042.png)
+
+[Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh-|-parte-2)

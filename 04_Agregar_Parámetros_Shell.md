@@ -1,6 +1,4 @@
----------------------------------------------------------
-
-### Agregar Parámetros
+# Agregar Parámetros
 
 ---------------------------------------------------------
 
@@ -33,13 +31,15 @@ Si volvemos a acceder a la salida de la terminal veremos el resultado obtenido.
 Ahora podemos repetir la construcción del jobs cambiando los valores de los parámetros incluidos.
 
 
+[Volver al Inicio](#agregar-parámetros)
+
+
+
+## TIPOS DE PARÁMETROS
+
 ---------------------------------------------------------
 
-### Tipos de Parámetros
-
----------------------------------------------------------
-
-#### Elección
+### ELECCIÓN
 
 ![./img/00028.png](./img/0028.png)
 
@@ -53,6 +53,8 @@ Guardamos el job, para seguidamente regenerar el job, elegir los valores de los 
 
 ![./img/00031.png](./img/0031.png)
 
-#### Booleano
+### BOOLEANO
 
 En este ejemplo incluiremos el valor de un **booleano** y realizaremos otra prueba.
+
+[Volver al Inicio](#agregar-parámetros)
