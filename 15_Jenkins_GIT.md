@@ -180,7 +180,7 @@ Dentro **Seleccionaremos el miembro** al que queremos invitar al grupo, más el 
 
 ---------------------------------------------------------
 
-Para clonar el repositorio primeramente accederemos a la terminal del contenedor de **jenkins**, `docker exec -ti jenkins bash`.
+Para clonar el repositorio primeramente accederemos a la terminal del contenedor de **jenkins**, `docker exec -u root -ti jenkins bash`.
 
 Y accedemos dentro de **gitLab server** en el proyecto de **maven** para clonar el repositorio (seleccionamos el comando `git clone http://gitlab.example.com/jenkinssci/maven.git`)
 
@@ -191,6 +191,13 @@ jenkins@c407bf740a97:/$ git config --global user.name "imaginaGroup"
 jenkins@c407bf740a97:/$ git config --global user.email "imaginaGroup@imaginaGroup.com"
 jenkins@c407bf740a97:/$ git clone http://gitlab.example.com/jenkinssci/maven.git
 fatal: could not create work tree dir 'maven': Permission denied
+```
+
+```bash
+root@c407bf740a97:/# git clone http://gitlab.example.com/jenkinssci/maven.git
+Cloning into 'maven'...
+fatal: unable to access 'http://gitlab.example.com/jenkinssci/maven.git/': Failed to connect to gitlab.example.com port 80: Connection refused
+root@c407bf740a97:/#
 ```
 
 
