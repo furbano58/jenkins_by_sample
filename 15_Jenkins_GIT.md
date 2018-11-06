@@ -182,22 +182,282 @@ Dentro **Seleccionaremos el miembro** al que queremos invitar al grupo, más el 
 
 Para clonar el repositorio primeramente accederemos a la terminal del contenedor de **jenkins**, `docker exec -u root -ti jenkins bash`.
 
-Y accedemos dentro de **gitLab server** en el proyecto de **maven** para clonar el repositorio (seleccionamos el comando `git clone http://gitlab.example.com/jenkinssci/maven.git`)
+Y accedemos dentro de **gitLab server** en el proyecto de **maven** para clonar el repositorio (seleccionamos el comando `git clone http://gitlab.example.com/jenkinssci/maven.git`) y lo ejecutamos en la carpeta de nuestro proyecto.
 
 ![0108.png](./img/0108.png)
 
 ```bash
-jenkins@c407bf740a97:/$ git config --global user.name "imaginaGroup"
-jenkins@c407bf740a97:/$ git config --global user.email "imaginaGroup@imaginaGroup.com"
-jenkins@c407bf740a97:/$ git clone http://gitlab.example.com/jenkinssci/maven.git
-fatal: could not create work tree dir 'maven': Permission denied
+demo@VirtualBox:~/Demo_Docker$ git clone http://gitlab.example.com/jenkinssci/maven.git
+Cloning into 'maven'...
+Username for 'http://gitlab.example.com': root
+Password for 'http://root@gitlab.example.com':
+warning: You appear to have cloned an empty repository.
 ```
+
+Se nos infomra que el repositorio descargado está vacío, por lo que para cargar contenido accederemos al repositorio de la demo de **maven** para clonarlo `git clone https://github.com/jenkins-docs/simple-java-maven-app`
 
 ```bash
-root@c407bf740a97:/# git clone http://gitlab.example.com/jenkinssci/maven.git
-Cloning into 'maven'...
-fatal: unable to access 'http://gitlab.example.com/jenkinssci/maven.git/': Failed to connect to gitlab.example.com port 80: Connection refused
-root@c407bf740a97:/#
+demo@VirtualBox:~/Demo_Docker$ git clone https://github.com/jenkins-docs/simple-java-maven-app
+Cloning into 'simple-java-maven-app'...
+remote: Enumerating objects: 88, done.
+remote: Total 88 (delta 0), reused 0 (delta 0), pack-reused 88
+Unpacking objects: 100% (88/88), done.
 ```
 
+Ahora tenemos dos repositorios en nuestra carpeta del proyecto. Así, que copiamos el contenido del repositorio **simple-java-maven-app** hacia el de **maven** mediante el comando `$ cp simple-java-maven-app/* maven/ -r`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ cp simple-java-maven-app/* maven/ -r
+```
+
+Si accedemos a la carpeta de **maven** podremos ver nuestro repositorio de **gitlab server**. 
+
+```bash
+demo@VirtualBox:~/Demo_Docker$ cd maven
+demo@VirtualBox:~/Demo_Docker$ ls
+```
+
+Y visualizar el estado del repositorio, `git status`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker/maven$ git status
+On branch master
+No commits yet
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        README.md
+        jenkins/
+        pom.xml
+        src/
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Añadimos los archivos al **staged** del repositorio, `git add .`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker/maven$ git add .
+```
+
+Y volvemos a chequear el estado del repsoitorio, `git status`.
+
+```bash
+demo@VirtualBox:~/Demo_Docker/maven$ git status
+On branch master
+No commits yet
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   README.md
+        new file:   jenkins/Jenkinsfile
+        new file:   jenkins/scripts/deliver.sh
+        new file:   pom.xml
+        new file:   src/main/java/com/mycompany/app/App.java
+        new file:   src/test/java/com/mycompany/app/AppTest.java
+```
+
+Ahora ejecutamos un **commit**, `git commit -m "Add maven files"`. 
+
+```bash
+demo@VirtualBox:~/Demo_Docker/maven$ git commit -m "Add maven files"
+[master (root-commit) ed959e2] Add maven files
+ 6 files changed, 177 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 jenkins/Jenkinsfile
+ create mode 100755 jenkins/scripts/deliver.sh
+ create mode 100644 pom.xml
+ create mode 100644 src/main/java/com/mycompany/app/App.java
+ create mode 100644 src/test/java/com/mycompany/app/AppTest.java
+```
+
+Hacemos un **Push** a la rama **master**
+
+```bash
+demo@VirtualBox:~/Demo_Docker/maven$ git push -u origin master
+Username for 'http://gitlab.example.com': root
+Password for 'http://root@gitlab.example.com':
+Counting objects: 21, done.
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (21/21), 3.11 KiB | 796.00 KiB/s, done.
+Total 21 (delta 0), reused 0 (delta 0)
+To http://gitlab.example.com/jenkinssci/maven.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+```
+
+> **NOTA**: Si diera fallo la ejecución del **push** debido a los permisos del usuario habrá que cambiarle el role a **maintainer**, para ello accedemos al proyecto **maven** en la **configuración** >> **Miembros**.
+
+![0109.png](./img/0109.png)
+
+Podremos ver nuestro proyecto ya subido tal que así.
+
+![0110.png](./img/0110.png)
+
+**YA NUESTRO REPOSITORIO TIENE INFORMACIÓN, EL SIGUIENTE PASO CONSISTIRÁ EN CONECTARLO CON JENKINS**
+
+[Volver al Inicio](#jenkins-git)
+
+
+
+## MODIFICAR LA URL DE GIT EN EL JOB DE MAVEN
+
+---------------------------------------------------------
+
+Accedemos a la url de nuestro repositorio, para ello accedemos a la configuración [/maven/.git/config](./maven/.git/config) de git en el proyecto.
+
+```bash
+demo@VirtualBox:~/Demo_Docker/$ cat maven/.git/config
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+[remote "origin"]
+        url = http://gitlab.example.com/jenkinssci/maven.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+```
+
+Ahora accedemos a nuestro **jenkins**, [http://localhost:8080/](http://localhost:8080/) y agregamos un par de credenciales que nos permitirán trabajar en el repositorio del tipo **usuario y contraseña**.
+
+**Credenciales GitLab server** (user: root, password: admin_admin)
+![0111.png](./img/0111.png)
+
+**Credenciales GitLab server** (user: imaginaGroup, password: 87654321)
+![0112.png](./img/0112.png)
+
+Y cogemos la url del repositorio (`url = http://gitlab.example.com/jenkinssci/maven.git`) para junto a las nuevas credenciales crear un nuevo job que tenga como **código fuente** el repositorio.
+
+> **NOTA IMPORTANTE** Usaremos la url del repositorio `http://git/jenkinssci/maven.git` en este caso ya que **jenkins** conoce esa fuente de repositorio por el nombre que le adjudicamos al contenedor dentro de la configuración de [docker-compose.yml](docker-compose.yml).
+
+![0113.png](./img/0113.png)
+
+**AHORA PODEMOS GUARDAR EL JOB, Y VOLVERLO A CONSTRUIR**
+
+[Volver al Inicio](#jenkins-git)
+
+
+
+## GIT HOOKS
+
+---------------------------------------------------------
+
+Pensemos que tenemos a varios desarrolladoes trabajando en un mismo proyecto, lo ideal es que despues de subir el código, ejecutarlo, testearlo y notificar si existen errores, lo ideal es que se gatille un evento que genere una actualización de los repositorios del resto de usuarios.
+
+> **IMPORTANTE**: Es necesario tener un usuario en **jenkins** que gatille las ejecuciones, Instalar el **plugins** **Role-based**, Configurar la seguridad para que acepte usuarios de **role-based** (permisos read-global y ver y construir jobs)
+
+Usaremos al usuario **jenkins** con password **1234**.
+
+Para ello accedemos al container de **gitLab server**
+
+```bash
+demo@VirtualBox:~/Demo_Docker/$ docker exec -ti git-server bash
+```
+
+para una vez dentro acceder al repositorio creado **maven**, `cd /var/opt/gitlab/git-data/repositories/jenkinssci/maven.git`.
+
+```bash
+root@gitlab:/# cd /var/opt/gitlab/git-data/repositories/jenkinssci/maven.git
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git/#
+```
+
+Una vez dentro veremos (`ll`) que su contenido es el mismo de la aplicación de ejemplo descargada. 
+
+```bash
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# ll
+total 40
+drwxrwx---  6 git root 4096 Nov  6 08:34 ./
+drwxr-s---  4 git root 4096 Nov  5 22:35 ../
+-rw-r--r--  1 git git    23 Nov  5 22:35 HEAD
+-rw-r--r--  1 git git   104 Nov  5 22:35 config
+-rw-r--r--  1 git git    73 Nov  5 22:35 description
+lrwxrwxrwx  1 git git    47 Nov  5 22:35 hooks -> /opt/gitlab/embedded/service/gitlab-shell/hooks/
+drwxr-xr-x  2 git git  4096 Nov  5 22:35 hooks.old.1541457341/
+drwxr-xr-x  2 git git  4096 Nov  5 22:35 info/
+-rw-r--r--  1 git git   207 Nov  6 08:34 language-stats.cache
+drwxr-xr-x 24 git git  4096 Nov  6 08:33 objects/
+drwxr-xr-x  5 git git  4096 Nov  6 08:33 refs/
+```
+
+Para crear un **hook** que gatille los eventos deberemos crear una carpeta **custom_hooks**, `mkdir custom_hooks` y acceder a ella, `cd custom_hooks`.
+
+```bash
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# mkdir custom_hooks
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# cd custom_hooks
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git/custom_hooks#
+```
+Y creamos el **script**
+
+```bash
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git/custom_hooks# vi post-receive
+```
+_[post-receive](post-receive)_
+```sh
+#!/bin/bash
+
+# Get branch name from ref head
+
+if ! [ -t 0 ]; then
+  read -a ref
+fi
+IFS='/' read -ra REF <<< "${ref[2]}"
+branch="${REF[2]}"
+
+if [ $branch == "master" ]; then
+crumb=$(curl -u "jenkins:1234" -s 'http://jenkins:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+curl -u "jenkins:1234" -H "$crumb" -X POST http://jenkins:8080/job/maven/build?delay=0sec
+
+  if [ $? -eq 0 ] ; then
+    echo "*** Ok"
+  else
+    echo "*** Error"
+  fi
+fi
+```
+
+Una vez creado el archivo lo guardamos y le asignamos permisos de ejecución `chmod +x post-receive`.
+
+```bash
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git/custom_hooks# chmod+x post-receive
+```
+
+Salimos del directorio y cambiamos sus permisos `chown git:git custom_hooks/ -R`. 
+
+```bash
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# ll
+total 44
+drwxrwx---  7 git  root 4096 Nov  6 10:27 ./
+drwxr-s---  4 git  root 4096 Nov  5 22:35 ../
+-rw-r--r--  1 git  git    23 Nov  5 22:35 HEAD
+-rw-r--r--  1 git  git   104 Nov  5 22:35 config
+drwxr-xr-x  2 root root 4096 Nov  6 11:06 custom_hooks/
+-rw-r--r--  1 git  git    73 Nov  5 22:35 description
+lrwxrwxrwx  1 git  git    47 Nov  5 22:35 hooks -> /opt/gitlab/embedded/service/gitlab-shell/hooks/
+drwxr-xr-x  2 git  git  4096 Nov  5 22:35 hooks.old.1541457341/
+drwxr-xr-x  2 git  git  4096 Nov  5 22:35 info/
+-rw-r--r--  1 git  git   207 Nov  6 08:34 language-stats.cache
+drwxr-xr-x 24 git  git  4096 Nov  6 08:33 objects/
+drwxr-xr-x  5 git  git  4096 Nov  6 08:33 refs/
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# chown git:git custom_hooks/ -R
+root@gitlab:/var/opt/gitlab/git-data/repositories/jenkinssci/maven.git# ll
+total 44
+drwxrwx---  7 git root 4096 Nov  6 10:27 ./
+drwxr-s---  4 git root 4096 Nov  5 22:35 ../
+-rw-r--r--  1 git git    23 Nov  5 22:35 HEAD
+-rw-r--r--  1 git git   104 Nov  5 22:35 config
+drwxr-xr-x  2 git git  4096 Nov  6 11:06 custom_hooks/
+-rw-r--r--  1 git git    73 Nov  5 22:35 description
+lrwxrwxrwx  1 git git    47 Nov  5 22:35 hooks -> /opt/gitlab/embedded/service/gitlab-shell/hooks/
+drwxr-xr-x  2 git git  4096 Nov  5 22:35 hooks.old.1541457341/
+drwxr-xr-x  2 git git  4096 Nov  5 22:35 info/
+-rw-r--r--  1 git git   207 Nov  6 08:34 language-stats.cache
+drwxr-xr-x 24 git git  4096 Nov  6 08:33 objects/
+drwxr-xr-x  5 git git  4096 Nov  6 08:33 refs/
+```
+
+Para probar que funciona accedemos al repositorio dentro de la carpeta **maven** del proyecto y modificaremos el archivo que genera el mensaje de **Hello New World!**.
+
+Ejecutamos `git status` para ver el estado del proyecto y `git add .` para hacer **satged** sobre ellos. Finalmente ejecutamos `git commit -m "second commit"`.  
+
+Ahora al hacer **git push** debería ejecutarse el script creado dentro de Jenkins en los usuarios distintos al que lo lanzó. (user: imaginaGroup, password: 87654321)
 
