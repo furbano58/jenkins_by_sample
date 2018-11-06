@@ -4,7 +4,8 @@ services:
     container_name: jenkins
     image: jenkins/docker
     build:
-      context: pipeline    
+      context: pipeline  
+      dockerfile: Dockerfile   
     ports:
       - "8080:8080"
     volumes:
