@@ -21,7 +21,9 @@ hola,
 
 Habría que definir las variables internas, para ello usaremos **jenkins** para pasarle esas variables.
 
-Para eso primero le daremos permisos de ejecución al script `chmod +x script.sh`, y lo moveremos al contenedor. Para ello moveremos el archivo a dentro del contenedor uasndo el comando `docker cp script.sh jenkins:/opt`.
+Para eso primero le daremos permisos de ejecución al script `chmod +x script.sh`, y lo moveremos al contenedor. Para ello moveremos el archivo a dentro del contenedor usando el comando `docker cp script.sh jenkins:/opt`.
+
+**IMPORTANTE** Otorgar permisos antes de subir el archivo mediante el comando `chmod +x script.sh`, sino luego tendremos problemas, ya que indicará que no lo encuentra.
 
 ```bash
 demo@VirtualBox:~/Demo_Docker$ chmod +x script.sh

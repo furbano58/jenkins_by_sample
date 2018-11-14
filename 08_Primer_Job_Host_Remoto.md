@@ -17,7 +17,7 @@ echo "Hola, $NAME. La hora es $(date)" > /tmp/test
 
 ![./img/0043.png](./img/0043.png)
 
-Y si accedemos a la terminal de salida del job veremos que efectivamente se ejcuta correctamente el job.
+Y si accedemos a la terminal de salida del job veremos que efectivamente se ejecuta correctamente el job.
 
 ![./img/0044.png](./img/0044.png)
 

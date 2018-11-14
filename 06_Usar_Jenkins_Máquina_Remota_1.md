@@ -201,7 +201,7 @@ RUN /usr/sbin/sshd-keygen > /dev/null 2>&1
 CMD /usr/sbin/sshd -D
 ```
 
-> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build` cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
 [Volver al Inicio](#usar-jenkins-en-una-máquina-remota-vía-ssh)
 
@@ -255,7 +255,7 @@ networks:
     net:
 ```
 
-> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build`cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
+> **NOTA IMPORTANTE**: Ejecutaremos `docker-compose build` cada vez que modifiquemos la configuración para reconstruir nuestro servicio.
 
 > **NOTA**: No olvidar haber creado anteriormente la carpeta **jenkins_home**, `mkdir jenkins_home`, dónde alojaremos nuestro contenedor de jenkins, y haberle otorgado permisos de ejecución `sudo chown 1000 -R jenkins_home`.
 
@@ -361,7 +361,7 @@ Last login: Thu Nov  1 10:37:56 2018 from jenkins.02_jenkins_server_ssh_net
 [remote_user@865645b9cf44 ~]$
 ```
 
-Ya estarríamos conectados a nuestro servidor.
+Ya estaríamos conectados a nuestro servidor.
 
 **AHORA CON Jenkins HAREMOS LO MISMO**
 

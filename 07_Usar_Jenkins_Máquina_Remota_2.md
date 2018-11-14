@@ -13,7 +13,7 @@ demo@VirtualBox:~/Demo_Docker$ docker exec -ti jenkins bash -c "cat /var/jenkins
 c3aab8f70884458aa8d12f89d6ddfacb
 ```
 
-Una vez dentro de **jenkins** accederemos a **Administrar jenkins** > **Administrar plugins** y seleccionaremos la opción de 
+Una vez dentro de **jenkins** accederemos a **Administrar jenkins** > **Administrar plugins** y seleccionaremos la opción de **Todos los plugins**
 
 ![./img/00036.png](./img/0036.png)
 
@@ -35,7 +35,7 @@ Ahora podremos acceder a **Todos los plugins** para comprobar que efectivamente 
 
 ---------------------------------------------------------
 
-Previamnete es necesario añadir nuestras credenciales a **jenkins** para ello accedemos a **Credentials** > **System** > **Global Credentials**
+Previamente es necesario añadir nuestras credenciales a **jenkins** para ello accedemos a **Credentials** > **System** > **Global Credentials**
 
 ![./img/00039.png](./img/0039.png)
 
